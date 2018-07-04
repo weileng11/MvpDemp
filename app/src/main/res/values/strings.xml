@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MvpDemp</string>
+    <string name="action_settings">Settings</string>
 </resources>

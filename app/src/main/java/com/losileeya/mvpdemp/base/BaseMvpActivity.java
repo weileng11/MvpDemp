@@ -8,6 +8,8 @@ import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
+import butterknife.ButterKnife;
+
 /**
  * User: Losileeya (847457332@qq.com)
  * Date: 2016-09-11
@@ -16,7 +18,7 @@ import android.widget.Toast;
  *
  * @version :
  */
-public class BaseMvpActivity<P extends Presenter<V>,V extends BaseMvpView> extends AppCompatActivity implements BaseMvpView,LoaderManager.LoaderCallbacks<P>{
+public abstract class BaseMvpActivity<P extends Presenter<V>,V extends BaseMvpView> extends AppCompatActivity implements BaseMvpView,LoaderManager.LoaderCallbacks<P>{
     private final int BASE_LODER_ID = 1000;//loader的id值
     private ProgressDialog progressDialog;//登录进度条
     protected  P presenter;
@@ -25,7 +27,27 @@ public class BaseMvpActivity<P extends Presenter<V>,V extends BaseMvpView> exten
         super.onCreate(savedInstanceState);
         progressDialog = new ProgressDialog(this);//实例化progressDialog
         getSupportLoaderManager().initLoader(BASE_LODER_ID,null,this);//初始化loader
+        //布局
+        setContentView(getLayoutId());
+        ButterKnife.bind(this);
+        listenter();
+        initData();
     }
+
+    /**
+     * 初始化界面布局
+     */
+    protected abstract int getLayoutId();
+
+    /**
+     * 监听
+     */
+    protected abstract void listenter();
+
+    /**
+     * 初始化界面数据
+     */
+    protected abstract void initData();
 
     @Override
     protected void onStart() {
