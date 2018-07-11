@@ -1,5 +1,7 @@
 package com.losileeya.mvpdemp.presenter;
 
+import android.app.Activity;
+
 import com.losileeya.mvpdemp.base.BaseMvpPresenter;
 import com.losileeya.mvpdemp.model.CallBack;
 import com.losileeya.mvpdemp.model.UserModel;
@@ -18,7 +20,7 @@ public class LoginPresenter extends BaseMvpPresenter<LoginView> implements ILogi
     private UserModel userModel;//model层具体实现类
     private UserModel3 userModel2;
 
-    public LoginPresenter(UserModel userModel,UserModel3 userModel3) {
+    public LoginPresenter(UserModel userModel, UserModel3 userModel3) {
         this.userModel = userModel;
         this.userModel2=userModel3;
     }
@@ -33,17 +35,17 @@ public class LoginPresenter extends BaseMvpPresenter<LoginView> implements ILogi
             public void onSuccess() {
                 loginView.hideLoding();
                 loginView.showResult("登录成功");
-                userModel2.login("123", "123", new CallBack() {
-                    @Override
-                    public void onSuccess() {
-                        loginView.showResult("登录成功22222222");
-                    }
-
-                    @Override
-                    public void onFailure(String fail) {
-
-                    }
-                });
+//                userModel2.login("123", "123", new CallBack() {
+//                    @Override
+//                    public void onSuccess() {
+//                        loginView.showResult("登录成功22222222");
+//                    }
+//
+//                    @Override
+//                    public void onFailure(String fail) {
+//
+//                    }
+//                });
             }
 
             @Override

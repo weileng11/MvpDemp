@@ -44,6 +44,8 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter, LoginView> im
     @Override
     protected void initData() {
 //        initView();
+        username.setText("13828821554");
+        password.setText("111111");
     }
 
     /**
@@ -58,7 +60,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter, LoginView> im
         return new PresenterLoder<>(this, new PresenterFactory<LoginPresenter>() {
             @Override
             public LoginPresenter crate() {
-                return new LoginPresenter(new UserModel(), new UserModel3());
+                return new LoginPresenter(new UserModel(LoginActivity.this), new UserModel3());
             }
         });
     }
