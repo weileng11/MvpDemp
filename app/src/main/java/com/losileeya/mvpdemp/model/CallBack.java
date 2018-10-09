@@ -8,11 +8,11 @@ package com.losileeya.mvpdemp.model;
  *
  * @version :
  */
-public interface CallBack {
+public interface CallBack<T>{
     /**
      * model处理逻辑：成功回调
      */
-    void onSuccess();
+    void onSuccess(T contents);
     /**
      * model处理逻辑：失败回调
      */

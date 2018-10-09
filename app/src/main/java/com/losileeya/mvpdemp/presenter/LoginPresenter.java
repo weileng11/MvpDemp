@@ -1,11 +1,10 @@
 package com.losileeya.mvpdemp.presenter;
 
-import android.app.Activity;
-
 import com.losileeya.mvpdemp.base.BaseMvpPresenter;
 import com.losileeya.mvpdemp.model.CallBack;
 import com.losileeya.mvpdemp.model.UserModel;
 import com.losileeya.mvpdemp.model.UserModel3;
+import com.losileeya.mvpdemp.okgo.net.response.LoginDataResponse;
 import com.losileeya.mvpdemp.view.LoginView;
 
 /**
@@ -30,14 +29,14 @@ public class LoginPresenter extends BaseMvpPresenter<LoginView> implements ILogi
         checkViewAttach();//检查是否绑定
         final LoginView loginView=getMvpView();//获得LoginView
         loginView.showLoding("正在登录中...");//loginView的ui逻辑处理
-        userModel.login(loginView.getUsername(), loginView.getPassword(), new CallBack() {
+        userModel.login(loginView.getUsername(), loginView.getPassword(), new CallBack<LoginDataResponse>() {
             @Override
-            public void onSuccess() {
+            public void onSuccess(LoginDataResponse loginDataResponses) {
                 loginView.hideLoding();
                 loginView.showResult("登录成功");
-//                userModel2.login("123", "123", new CallBack() {
+//                userModel2.login("13828821554", "111111", new CallBack<LoginDataResponse>() {
 //                    @Override
-//                    public void onSuccess() {
+//                    public void onSuccess(LoginDataResponse dataResponse) {
 //                        loginView.showResult("登录成功22222222");
 //                    }
 //

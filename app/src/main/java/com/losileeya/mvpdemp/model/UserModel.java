@@ -1,15 +1,12 @@
 package com.losileeya.mvpdemp.model;
 
 import android.app.Activity;
-import android.os.Handler;
-import android.os.Looper;
 
 import com.losileeya.mvpdemp.okgo.net.OkGoHttpListenter;
 import com.losileeya.mvpdemp.okgo.net.OkGoHttpManager;
+import com.losileeya.mvpdemp.okgo.net.response.LoginDataResponse;
 import com.losileeya.mvpdemp.okgo.utils.Urls;
 import com.lzy.okgo.model.HttpParams;
-
-import retrofit2.http.Url;
 
 /**
  * User: Losileeya (847457332@qq.com)
@@ -41,10 +38,11 @@ public class UserModel implements IUserModel {
         httpParams.put("login", username);
         httpParams.put("password", password);
 
-        OkGoHttpManager.getInstance().doHttpPostRequest(activity, Urls.Login_Thinkine, httpParams,new OkGoHttpListenter() {
+        OkGoHttpManager.getInstance().doHttpPostRequest(LoginDataResponse.class,activity, Urls.Login_Thinkine, httpParams,new OkGoHttpListenter() {
             @Override
             public void onSuccess(Object content) {
-                callBack.onSuccess();
+                LoginDataResponse longbean=(LoginDataResponse)content;
+                callBack.onSuccess(longbean);
             }
 
             @Override

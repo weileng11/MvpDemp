@@ -25,10 +25,11 @@ public class UserModel3 implements IUserModel {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if(username.equals("123")&&password.equals("123"))
-                    callBack.onSuccess();
-                else
+                if(username.equals("123")&&password.equals("123")) {
+//                    callBack.onSuccess();
+                } else {
                     callBack.onFailure("帐号或者密码不正确");
+                }
             }
         }, 2000);
     }
