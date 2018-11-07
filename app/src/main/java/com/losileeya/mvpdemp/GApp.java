@@ -26,6 +26,8 @@ import com.lzy.okgo.https.HttpsUtils;
 import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
 import com.lzy.okgo.model.HttpHeaders;
 import com.lzy.okgo.model.HttpParams;
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.Logger;
 
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
@@ -53,6 +55,7 @@ public class GApp extends Application {
     public void onCreate() {
         super.onCreate();
         appLication=this;
+        Logger.addLogAdapter(new AndroidLogAdapter());
 //        System.setProperty("http.proxyHost", "192.168.1.104");   //个人测试网络时用的，删掉即可
 //        System.setProperty("http.proxyPort", "8888");
 

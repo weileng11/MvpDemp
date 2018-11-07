@@ -1,5 +1,9 @@
 apply plugin: 'com.android.application'
 
+
+configurations.all{
+	resolutionStrategy.force 'com.android.support:support-annotations:26.1.0'
+}
 android {
     compileSdkVersion 26
     buildToolsVersion "26.0.2"
@@ -9,40 +13,103 @@ android {
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
-
         javaCompileOptions {
             annotationProcessorOptions {
-                includeCompileClasspath = true
+                includeCompileClasspath= true
             }
         }
     }
     buildTypes {
+        debug {
+            minifyEnabled false
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        beta {
+            //关键代码，release， debug为library中已有buildType
+            
+            matchingFallbacks = ['release', 'debug']
+        }
+        packagingOptions {
+            exclude 'META-INF/DEPENDENCIES'
+            exclude 'META-INF/NOTICE'
+            exclude 'META-INF/LICENSE'
+            exclude 'META-INF/LICENSE.txt'
+            exclude 'META-INF/NOTICE.txt'
+            exclude 'META-INF/ASL2.0'
+            exclude 'META-INF/notice.txt'
+        }
     }
-
+    lintOptions {
+        abortOnError false
+        aaptOptions.cruncherEnabled= false
+        aaptOptions.useNewCruncher= false
+    }
+	
+	signingConfigs{
+		debug{
+			//MD5: D6:F43:86:3D:CF:2F:43:09:5C:91:68:27:78:54:53:4F
+			//SHA1: 5D:87:28:93:2C:DC:12:D0:7C:E2:C1:EF:14:CE:A3:77:E5:CB:9A:0A
+			storeFile file("../.key/debug.keystore")
+			keyAlias "weileng"
+			keyPassword "weileng"
+			storePassword "weileng"
+		}
+		release{
+			//MD5: 74:D5:30:70:E1:48:49:13:40:20:E4:8F:CD:A4:DC:96
+			//SHA1: 4B:B6:B9:64:BB:D2:ED:2C:94:86:E0:D9:1D:91:BF:6E:26:24:82:41
+			storeFile file("../.key/weileng.jks")
+			keyAlias "weileng"
+			keyPassword "weileng"
+			storePassword "weileng"
+		}
+	}
+	
+	buildTypes{
+		debug{
+			signingConfig signingConfigs.release
+			applicationIdSuffix ".debug"
+		}
+		release{
+			signingConfig signingConfigs.release
+			debuggable true
+			zipAlignEnabled true
+			shrinkResources true
+			minifyEnabled true
+			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+		}
+	}
+	
+	lintOptions{
+		checkReleaseBuilds false
+		abortOnError false
+		disable "ResourceType"
+	}
 }
 
-dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    compile "com.android.support:appcompat-v7:26+"
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    testCompile 'junit:junit:4.12'
-    compile "com.android.support:design:26+"
-    compile 'com.android.support:multidex:1.0.2'
-
-
-    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
-    //必须使用
-    compile 'com.lzy.net:okgo:3.0.4'
-
-
-    compile 'com.jakewharton:butterknife:8.8.1'
-    compile 'com.jakewharton:butterknife-compiler:8.8.1'
-    compile 'com.jakewharton:butterknife-annotations:8.8.1'
+dependencies{
+	compile fileTree(include: ['*.jar'], dir: 'libs')
+//	androidTestImplementation 'com.android.support.test:runner:1.0.2'
+//	androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+//	androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+//		exclude group: 'com.android.support', module: 'support-annotations'
+//	})
+	implementation 'com.android.support:appcompat-v7:26+'
+	implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+//	testCompile 'junit:junit:4.12'
+//	implementation 'com.android.support:design:26+'
+//	implementation 'com.android.support:multidex:1.0.2'
+	implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+	
+	//必须使用
+	implementation 'com.lzy.net:okgo:3.0.4'
+	implementation 'com.orhanobut:logger:2.2.0'
+	implementation 'com.jakewharton:butterknife:8.8.1'
+	implementation 'com.jakewharton:butterknife-compiler:8.8.1'
+	implementation 'com.jakewharton:butterknife-annotations:8.8.1'
+	
+	//适配库
+	implementation 'com.zhy:autolayout:1.4.5'
 }

@@ -12,6 +12,8 @@ import com.lzy.okgo.model.HttpParams;
 import com.lzy.okgo.model.Progress;
 import com.lzy.okgo.model.Response;
 import com.lzy.okgo.request.base.Request;
+import com.orhanobut.logger.Logger;
+//import com.orhanobut.logger.Logger;
 
 import org.json.JSONObject;
 
@@ -181,6 +183,7 @@ public class OkGoHttpManager<T> {
                     @Override
                     public void onSuccess(Response<String> response) {
                         String content= response.body();
+//                        Logger.json("参数值"+content);
                         T tClass = JSONToObject(content, mclass);
                         okGoHttpListenter.onSuccess(tClass);
                     }

@@ -14,6 +14,7 @@ import com.losileeya.mvpdemp.model.UserModel3;
 import com.losileeya.mvpdemp.presenter.LoginPresenter;
 import com.losileeya.mvpdemp.utils.PresenterFactory;
 import com.losileeya.mvpdemp.utils.PresenterLoder;
+//import com.orhanobut.logger.Logger;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,6 +45,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter, LoginView> im
     @Override
     protected void initData() {
 //        initView();
+//        Logger.d("xxx");
         username.setText("13828821554");
         password.setText("111111");
     }

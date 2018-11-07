@@ -2,12 +2,13 @@
 
 buildscript {
     repositories {
-        jcenter()
-        google()
-        maven {
-            url 'https://maven.google.com'
-        }
-    }
+//		mavenLocal()
+//        jcenter()
+//        google()
+//        maven {
+//            url 'https://maven.google.com'
+//        }
+	}
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.1'
 
@@ -17,15 +18,20 @@ buildscript {
 }
 
 allprojects {
-    repositories {
-        mavenCentral()
-        jcenter()
-        google()
-        maven {
-            url 'https://maven.google.com'
-        }
-        maven { url "https://jitpack.io" }
-    }
+    repositories{
+//        mavenCentral()
+//        jcenter()
+//        google()
+//        maven {
+//            url 'https://maven.google.com'
+//        }
+//        maven { url "https://jitpack.io" }
+	
+//		flatDir{ dirs 'libs/aar' }
+		maven{ url "${rootDir.path}/.m2" }
+//		google()
+	}
+	
 }
 
 task clean(type: Delete) {
